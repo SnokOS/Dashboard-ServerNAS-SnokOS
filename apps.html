@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnokNAS - App Marketplace</title>
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .app-hero {
+            background: linear-gradient(45deg, rgba(6, 182, 212, 0.1), transparent);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top glass-effect">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/img/logo.png" alt="SnokNAS Logo" width="40" height="40" class="me-2">
+                <span class="fw-bold fs-4 branding-text">SnokNAS</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="index.html" data-t="dashboard">
+                            <i data-lucide="layout-dashboard" class="me-2 icon-sm"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active d-flex align-items-center" href="apps.html" data-t="apps">
+                            <i data-lucide="layout-grid" class="me-2 icon-sm"></i> Apps
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="files.html" data-t="files">
+                            <i data-lucide="folder" class="me-2 icon-sm"></i> Files
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="storage.html" data-t="storage">
+                            <i data-lucide="hard-drive" class="me-2 icon-sm"></i> Storage
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="sharing.html" data-t="sharing">
+                            <i data-lucide="share-2" class="me-2 icon-sm"></i> Sharing
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="network.html" data-t="network">
+                            <i data-lucide="network" class="me-2 icon-sm"></i> Network
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="settings.html" data-t="settings">
+                            <i data-lucide="settings" class="me-2 icon-sm"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <!-- Theme Toggle -->
+                    <button class="btn btn-sm btn-outline-info rounded-circle me-3" id="themeToggle"
+                        title="Toggle Theme">
+                        <i data-lucide="moon" class="icon-sm"></i>
+                    </button>
+
+                    <!-- Language Switcher -->
+                    <div class="dropdown me-4">
+                        <button
+                            class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center rounded-pill px-3"
+                            type="button" id="langSelect" data-bs-toggle="dropdown">
+                            <i data-lucide="languages" class="me-2 icon-sm"></i> <span id="currentLang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end glass-effect-dropdown border-white-10">
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="en">English</a></li>
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="fr">Français</a>
+                            </li>
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="ar">العربية</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Power Actions -->
+                    <div class="d-flex gap-2 me-4 border-end border-white-10 pe-3">
+                        <button class="btn btn-sm btn-outline-warning rounded-circle power-btn" title="Reboot System"
+                            data-bs-toggle="modal" data-bs-target="#powerModal" data-action="reboot">
+                            <i data-lucide="refresh-cw" class="icon-sm"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger rounded-circle power-btn" title="Shutdown System"
+                            data-bs-toggle="modal" data-bs-target="#powerModal" data-action="shutdown">
+                            <i data-lucide="power" class="icon-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container p-4">
+        <div class="app-hero mb-5 d-flex align-items-center">
+            <div class="flex-grow-1">
+                <h1 class="fw-bold mb-2">Explore the App Store</h1>
+                <p class="text-white-50 fs-5 mb-4">Extend your NAS with Docker-powered applications in one click.</p>
+                <div class="input-group w-50 glass-effect rounded-pill p-1">
+                    <input type="text" class="form-control bg-transparent border-0 text-white px-4"
+                        placeholder="Search for applications (e.g. Pi-hole, Jellyfin)">
+                    <button class="btn btn-primary rounded-pill px-4">Search</button>
+                </div>
+            </div>
+            <div class="d-none d-lg-block">
+                <i data-lucide="box" class="text-primary opacity-25" size="120"></i>
+            </div>
+        </div>
+
+        <h4 class="fw-bold mb-4">Featured Applications</h4>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card h-100 service-item text-center p-3">
+                    <img src="https://avatars.githubusercontent.com/u/1271171?s=200&v=4" width="60"
+                        class="mx-auto mt-3 mb-3 rounded-4">
+                    <h5 class="fw-bold">Nextcloud Hub</h5>
+                    <p class="text-white-50 small">Collaboration & Storage</p>
+                    <button class="btn btn-primary rounded-pill btn-sm w-100"
+                        onclick="installApp('nextcloud')">Install</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 service-item text-center p-3">
+                    <img src="https://jellyfin.org/images/logo.svg" width="60" class="mx-auto mt-3 mb-3 rounded-4">
+                    <h5 class="fw-bold">Jellyfin</h5>
+                    <p class="text-white-50 small">Open Media System</p>
+                    <button class="btn btn-outline-light rounded-pill btn-sm w-100">Details</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 service-item text-center p-3">
+                    <img src="https://pi-hole.net/wp-content/uploads/2016/12/logo-150.png" width="60"
+                        class="mx-auto mt-3 mb-3 rounded-4">
+                    <h5 class="fw-bold">Pi-hole</h5>
+                    <p class="text-white-50 small">Ad Blocking DNS</p>
+                    <button class="btn btn-primary rounded-pill btn-sm w-100"
+                        onclick="installApp('pihole')">Install</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 service-item text-center p-3">
+                    <img src="https://home-assistant.io/images/home-assistant-logo.svg" width="60"
+                        class="mx-auto mt-3 mb-3 rounded-4">
+                    <h5 class="fw-bold">Home Assistant</h5>
+                    <p class="text-white-50 small">Smart Home Central</p>
+                    <button class="btn btn-primary rounded-pill btn-sm w-100"
+                        onclick="installApp('homeassistant')">Install</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 service-item text-center p-3">
+                    <img src="https://avatars.githubusercontent.com/u/108343165?s=200&v=4" width="60"
+                        class="mx-auto mt-3 mb-3 rounded-4">
+                    <h5 class="fw-bold">CasaOS</h5>
+                    <p class="text-white-50 small">Simple Home Cloud</p>
+                    <button class="btn btn-primary rounded-pill btn-sm w-100"
+                        onclick="installApp('casaos')">Install</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Power Modal -->
+    <div class="modal fade" id="powerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-effect-dropdown border-white-10 text-white">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="powerModalTitle">System Action</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div id="powerIcon" class="mb-3">
+                        <i data-lucide="alert-triangle" class="text-warning" size="48"></i>
+                    </div>
+                    <p class="mb-0 fs-5" id="powerMessage">Are you sure you want to proceed?</p>
+                    <small class="text-white-50 mt-2 d-block">This will terminate all active connections.</small>
+                </div>
+                <div class="modal-footer border-0 pt-0 justify-content-center">
+                    <button type="button" class="btn btn-outline-light rounded-pill px-4"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="confirmPower">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5 text-center p-4 border-top border-white-10">
+        <p class="text-white-50 small mb-0">&copy; 2025 SnokNAS Core v2.0</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

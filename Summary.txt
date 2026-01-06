@@ -1,0 +1,31 @@
+انشاء dashboard كامل لي dashboard Server NAS متكامل بي html css js bootstrap شبيه بي هدا المثل https://demos.pixinvent.com/vuexy-html-admin-template/html/horizontal-menu-template-dark/index.html
+اسم = SnokNAS و اظافة logo 
+و مع تاثرات احترفي و جميل 
+و جعله قبل لتركيبه و تثبيته علي server nas حقيقي بي python 
+و تثبيت جميع متطلبات dashboard ليشتغل بكفائ عالي و بدون اخطاء
+
+
+اريد برمجت جميع الصفحات و القوائمة و اظافة له ادار كامل و شامل 
+
+
+
+اظافة application , folder , sharing , options في القائمة , و اظافة زار لي Reboot , Shutdown 
+و برمجة و جعله تفعولي اكثل و شامل 
+تعديل Storage Management ادر ضغط على القرص تضهر info و المسح  
+هده اعطيبن حلت القرص 
+و
+اجعل كل قرص في جدول مع اظافة زار غلي او قفل و عند الضغط ليه يضهر المساح في الدائرة  و يضهر درخت الحرار في منتصف الدائرة
+
+تتغير الجطوط الى NOVA
+و اظافة زار لتغير اللغة من الانجلزية و الفرنسية و العربية و اللغة الافترضيا الانجلزية 
+و اظافة زار لتغيل بين المضهر الداكن و الفاتح و المضهر  الافترضيا الداطن 
+و برمجة القائمة مجعله اكثر تفعولي و برمجته كل قائمة محداد تضهر معلومته System Settings
+General , User , Secuity , DDns , Updates , Info Server , About 
+
+
+
+
+
+
+
+Summary = ملخص

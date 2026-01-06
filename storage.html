@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnokNAS - Storage Management</title>
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-dark text-white">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top glass-effect">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/img/logo.png" alt="SnokNAS Logo" width="40" height="40" class="me-2">
+                <span class="fw-bold fs-4 branding-text">SnokNAS</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="index.html" data-t="dashboard">
+                            <i data-lucide="layout-dashboard" class="me-2 icon-sm"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="apps.html" data-t="apps">
+                            <i data-lucide="layout-grid" class="me-2 icon-sm"></i> Apps
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="files.html" data-t="files">
+                            <i data-lucide="folder" class="me-2 icon-sm"></i> Files
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active d-flex align-items-center" href="storage.html" data-t="storage">
+                            <i data-lucide="hard-drive" class="me-2 icon-sm"></i> Storage
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="sharing.html" data-t="sharing">
+                            <i data-lucide="share-2" class="me-2 icon-sm"></i> Sharing
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="network.html" data-t="network">
+                            <i data-lucide="network" class="me-2 icon-sm"></i> Network
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link d-flex align-items-center" href="settings.html" data-t="settings">
+                            <i data-lucide="settings" class="me-2 icon-sm"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <!-- Theme Toggle -->
+                    <button class="btn btn-sm btn-outline-info rounded-circle me-3" id="themeToggle"
+                        title="Toggle Theme">
+                        <i data-lucide="moon" class="icon-sm"></i>
+                    </button>
+
+                    <!-- Language Switcher -->
+                    <div class="dropdown me-4">
+                        <button
+                            class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center rounded-pill px-3"
+                            type="button" id="langSelect" data-bs-toggle="dropdown">
+                            <i data-lucide="languages" class="me-2 icon-sm"></i> <span id="currentLang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end glass-effect-dropdown border-white-10">
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="en">English</a></li>
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="fr">Français</a>
+                            </li>
+                            <li><a class="dropdown-item text-white lang-option" href="#" data-lang="ar">العربية</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Power Actions -->
+                    <div class="d-flex gap-2 me-4 border-end border-white-10 pe-3">
+                        <button class="btn btn-sm btn-outline-warning rounded-circle power-btn" title="Reboot System"
+                            data-bs-toggle="modal" data-bs-target="#powerModal" data-action="reboot">
+                            <i data-lucide="refresh-cw" class="icon-sm"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger rounded-circle power-btn" title="Shutdown System"
+                            data-bs-toggle="modal" data-bs-target="#powerModal" data-action="shutdown">
+                            <i data-lucide="power" class="icon-sm"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown me-3">
+                        <a href="#" class="text-white position-relative" id="notificationDrop"
+                            data-bs-toggle="dropdown">
+                            <i data-lucide="bell"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end glass-effect-dropdown border-0 mt-3 p-3">
+                            <li class="dropdown-header text-white-50 text-uppercase fw-bold pb-2">Notifications</li>
+                            <li>
+                                <hr class="dropdown-divider border-white-10">
+                            </li>
+                            <li><a class="dropdown-item rounded-3" href="#">Disk 3 healthy</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle user-profile"
+                            data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=06b6d4&color=fff" alt="User"
+                                class="rounded-circle" width="35">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end glass-effect-dropdown border-0 mt-3">
+                            <li><a class="dropdown-item" href="#"><i data-lucide="user" class="me-2 icon-sm"></i>
+                                    Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-fluid p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0" data-t="storage">Storage Management</h2>
+            <button class="btn btn-primary rounded-pill px-4">Create New Pool</button>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <!-- Pool 1 -->
+            <div class="col-lg-12">
+                <div class="card overflow-hidden">
+                    <div
+                        class="card-header bg-transparent border-white-10 py-3 d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary-soft p-2 rounded-3 me-3">
+                                <i data-lucide="layers" class="text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 fw-bold">Pool_Data (ZFS RAIDZ1)</h5>
+                                <small class="text-white-50">Online • 4 Disks</small>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-white-50" data-bs-toggle="dropdown"><i
+                                    data-lucide="more-horizontal"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-end glass-effect-dropdown border-0">
+                                <li><a class="dropdown-item" href="#">Scrub Pool</a></li>
+                                <li><a class="dropdown-item" href="#">Snapshot</a></li>
+                                <li><a class="dropdown-item text-danger" href="#">Delete Pool</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="position-relative d-inline-block">
+                                    <div id="storageUsageDonut"></div>
+                                    <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                        <h2 class="fw-bold mb-0" id="centerTemp">32°C</h2>
+                                        <small class="text-white-50 uppercase ls-1" id="centerLabel"
+                                            data-t="usage">Usage</small>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <h4 class="fw-bold mb-0" id="usagePercentText">65% Used</h4>
+                                    <p class="text-white-50 small mb-0" id="usageDataText">14.2 TB of 21.8 TB</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-borderless align-middle mb-0">
+                                        <thead>
+                                            <tr class="text-white-50 small uppercase ls-1">
+                                                <th data-t="disk">Disk ID</th>
+                                                <th data-t="capacity">Capacity</th>
+                                                <th data-t="temperature">Temp</th>
+                                                <th data-t="status">Health</th>
+                                                <th data-t="action">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-top border-white-5 pointer disk-row" data-disk="sda">
+                                                <td class="fw-bold">sda (Seagate IronWolf)</td>
+                                                <td>4.0 TB</td>
+                                                <td><span class="badge bg-success-soft text-success">32°C</span></td>
+                                                <td data-t="healthy">100%</td>
+                                                <td><span class="status-indicator online"></span> <span
+                                                        data-t="online">ONLINE</span></td>
+                                            </tr>
+                                            <tr class="border-top border-white-5 pointer disk-row" data-disk="sdb">
+                                                <td class="fw-bold">sdb (Seagate IronWolf)</td>
+                                                <td>4.0 TB</td>
+                                                <td><span class="badge bg-success-soft text-success">34°C</span></td>
+                                                <td data-t="healthy">100%</td>
+                                                <td><span class="status-indicator online"></span> <span
+                                                        data-t="online">ONLINE</span></td>
+                                            </tr>
+                                            <tr class="border-top border-white-5 pointer disk-row" data-disk="sdc">
+                                                <td class="fw-bold">sdc (Seagate IronWolf)</td>
+                                                <td>4.0 TB</td>
+                                                <td><span class="badge bg-warning-soft text-warning">38°C</span></td>
+                                                <td data-t="warning">98%</td>
+                                                <td><span class="status-indicator online"></span> <span
+                                                        data-t="online">ONLINE</span></td>
+                                            </tr>
+                                            <tr class="border-top border-white-5 pointer disk-row" data-disk="sdd">
+                                                <td class="fw-bold">sdd (Seagate IronWolf)</td>
+                                                <td>4.0 TB</td>
+                                                <td><span class="badge bg-success-soft text-success">31°C</span></td>
+                                                <td data-t="healthy">100%</td>
+                                                <td><span class="status-indicator online"></span> <span
+                                                        data-t="online">ONLINE</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Hardware Visualization -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header border-0 bg-transparent pt-4">
+                        <h5 class="card-title fw-bold mb-0 text-center">Server Bay Visualization</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="rack-visualization p-4 glass-effect border-white-10 rounded-4">
+                            <div class="bay-row d-flex flex-wrap gap-3 justify-content-center">
+                                <div class="bay-large healthy pulse" title="Bay 1: Seagate 4TB">
+                                    <div class="bay-handle"></div>
+                                    <div class="bay-led"></div>
+                                </div>
+                                <div class="bay-large healthy pulse" title="Bay 2: Seagate 4TB">
+                                    <div class="bay-handle"></div>
+                                    <div class="bay-led"></div>
+                                </div>
+                                <div class="bay-large healthy pulse" title="Bay 3: Seagate 4TB">
+                                    <div class="bay-handle"></div>
+                                    <div class="bay-led"></div>
+                                </div>
+                                <div class="bay-large healthy pulse" title="Bay 4: Seagate 4TB">
+                                    <div class="bay-handle"></div>
+                                    <div class="bay-led"></div>
+                                </div>
+                                <div class="bay-large empty" title="Empty Bay">
+                                    <div class="bay-handle"></div>
+                                </div>
+                                <div class="bay-large empty" title="Empty Bay">
+                                    <div class="bay-handle"></div>
+                                </div>
+                                <div class="bay-large empty" title="Empty Bay">
+                                    <div class="bay-handle"></div>
+                                </div>
+                                <div class="bay-large empty" title="Empty Bay">
+                                    <div class="bay-handle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <div class="d-inline-flex gap-3 small text-white-50">
+                                <span><span class="status-indicator online"></span> Healthy</span>
+                                <span><span class="status-indicator offline"></span> Empty</span>
+                                <span><span class="status-indicator error"></span> Warn</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Disk SMART info -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header border-0 bg-transparent pt-4">
+                        <h5 class="card-title fw-bold mb-0">S.M.A.R.T Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="p-3 mb-3 glass-effect rounded-3 border-white-10">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">sda - Reallocated Sector Count</span>
+                                <span class="text-success">0</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-success" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="p-3 mb-3 glass-effect rounded-3 border-white-10">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">sdc - Spin Up Time</span>
+                                <span class="text-warning">Marginal</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-warning" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="p-3 glass-effect rounded-3 border-white-10">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">System Temperature Health</span>
+                                <span class="text-success">Optimal</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-success" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Disk Detail Modal -->
+    <div class="modal fade" id="diskDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content glass-effect-dropdown border-white-10 text-white">
+                <div class="modal-header border-0 pb-0">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary-soft p-2 rounded-3 me-3">
+                            <i data-lucide="hard-drive" class="text-primary"></i>
+                        </div>
+                        <h5 class="modal-title fw-bold" id="diskModalTitle">Disk Information: /dev/sda</h5>
+                        <div class="ms-3 d-flex gap-1">
+                            <button class="btn btn-dark btn-xs p-1" onclick="updateDiskState('healthy')"
+                                title="Set Healthy"><i data-lucide="check-circle"
+                                    class="text-success icon-xs"></i></button>
+                            <button class="btn btn-dark btn-xs p-1" onclick="updateDiskState('warning')"
+                                title="Set Warning"><i data-lucide="alert-circle"
+                                    class="text-warning icon-xs"></i></button>
+                            <button class="btn btn-dark btn-xs p-1" onclick="updateDiskState('critical')"
+                                title="Set Critical"><i data-lucide="x-octagon"
+                                    class="text-danger icon-xs"></i></button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 glass-effect rounded-3 border-white-10">
+                                <small class="text-white-50 uppercase ls-1 d-block mb-3">Hardware Details</small>
+                                <div class="d-flex justify-content-between mb-2"><span>Model:</span><span
+                                        class="fw-bold" id="m-model">Seagate IronWolf 4TB</span></div>
+                                <div class="d-flex justify-content-between mb-2"><span>Serial:</span><span
+                                        class="fw-bold" id="m-serial">ZA16X9BQ</span></div>
+                                <div class="d-flex justify-content-between mb-2"><span>Interface:</span><span
+                                        class="fw-bold" id="m-interface">SATA 3.0 (6 Gb/s)</span></div>
+                                <div class="d-flex justify-content-between"><span>Rotation:</span><span class="fw-bold"
+                                        id="m-rotation">5900 RPM</span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-effect rounded-3 border-white-10">
+                                <small class="text-white-50 uppercase ls-1 d-block mb-3">Status & Health</small>
+                                <div class="d-flex justify-content-between mb-2"><span>Temperature:</span><span
+                                        class="fw-bold" id="m-temp">32°C</span></div>
+                                <div class="d-flex justify-content-between mb-2"><span>Power On Hours:</span><span
+                                        class="fw-bold" id="m-hours">12,452h</span></div>
+                                <div class="d-flex justify-content-between mb-2"><span>S.M.A.R.T:</span><span
+                                        class="fw-bold" id="m-smart">PASS</span></div>
+                                <div class="d-flex justify-content-between"><span>Overall Health:</span><span
+                                        class="fw-bold" id="m-health">100%</span></div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-4 glass-effect border-danger-soft border rounded-4 bg-danger-soft">
+                                <h6 class="text-danger fw-bold mb-3"><i data-lucide="alert-octagon"
+                                        class="me-2 icon-sm"></i> Danger Zone</h6>
+                                <p class="small text-white-50">Wiping this disk will permanently delete all data in the
+                                    sector. This action is irreversible.</p>
+                                <div class="d-flex gap-2 mt-3">
+                                    <button class="btn btn-outline-danger rounded-pill px-4 btn-sm"
+                                        id="wipeDiskBtn">Wipe Disk (Clear Data)</button>
+                                    <button class="btn btn-outline-light rounded-pill px-4 btn-sm" id="testDiskBtn">Run
+                                        S.M.A.R.T Short Test</button>
+                                </div>
+                                <div class="progress mt-3 d-none" id="diskActionProgress" style="height: 6px;">
+                                    <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                                        style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Power Modal -->
+    <div class="modal fade" id="powerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-effect-dropdown border-white-10 text-white">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="powerModalTitle">System Action</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div id="powerIcon" class="mb-3">
+                        <i data-lucide="alert-triangle" class="text-warning" size="48"></i>
+                    </div>
+                    <p class="mb-0 fs-5" id="powerMessage">Are you sure you want to proceed?</p>
+                    <small class="text-white-50 mt-2 d-block">This will terminate all active connections.</small>
+                </div>
+                <div class="modal-footer border-0 pt-0 justify-content-center">
+                    <button type="button" class="btn btn-outline-light rounded-pill px-4" data-bs-dismiss="modal"
+                        data-t="cancel">Cancel</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="confirmPower"
+                        data-t="confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5 text-center p-4 border-top border-white-10">
+        <p class="text-white-50 small mb-0">&copy; 2025 SnokNAS Core v2.0</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Radial Chart for Storage
+        var options = {
+            series: [65],
+            chart: {
+                type: 'radialBar',
+                height: 250,
+                sparkline: { enabled: true }
+            },
+            plotOptions: {
+                radialBar: {
+                    hollow: { size: '70%', background: 'transparent' },
+                    track: { background: 'rgba(255, 255, 255, 0.05)', strokeWidth: '100%' },
+                    dataLabels: {
+                        show: false // We use our own custom central labels
+                    }
+                }
+            },
+            colors: ['#06b6d4'],
+            stroke: { lineCap: 'round' }
+        };
+        var radialChart = new ApexCharts(document.querySelector("#storageUsageDonut"), options);
+        radialChart.render();
+
+        // Mock Disk Data Expanded
+        const disksData = {
+            'sda': { model: 'Seagate IronWolf 4TB', serial: 'ZA16X9BQ', temp: '32°C', health: '100%', status: 'ONLINE', state: 'healthy', hours: '12,452h', usage: 65, capacity: '4.0 TB', used: '2.6 TB' },
+            'sdb': { model: 'WD Red Pro 4TB', serial: 'WD-WCC7K1', temp: '34°C', health: '100%', status: 'ONLINE', state: 'healthy', hours: '8,120h', usage: 42, capacity: '4.0 TB', used: '1.7 TB' },
+            'sdc': { model: 'Seagate IronWolf 4TB', serial: 'ZA16Y8CC', temp: '38°C', health: '98%', status: 'ONLINE', state: 'warning', hours: '15,890h', usage: 89, capacity: '4.0 TB', used: '3.5 TB' },
+            'sdd': { model: 'Toshiba N300 4TB', serial: 'TOSH-99X1', temp: '31°C', health: '100%', status: 'ONLINE', state: 'healthy', hours: '2,300h', usage: 15, capacity: '4.0 TB', used: '0.6 TB' }
+        };
+
+        const diskModal = new bootstrap.Modal(document.getElementById('diskDetailModal'));
+        const diskBays = document.querySelectorAll('.bay-large');
+        const diskRows = document.querySelectorAll('.disk-row');
+        const wipeBtn = document.getElementById('wipeDiskBtn');
+        const testBtn = document.getElementById('testDiskBtn');
+        const progressBar = document.getElementById('diskActionProgress');
+        const progressBarInner = progressBar.querySelector('.progress-bar');
+
+        const updateUIWithDisk = (diskId) => {
+            const data = disksData[diskId] || disksData['sda'];
+
+            // Update Central Chart
+            radialChart.updateSeries([data.usage]);
+            document.getElementById('centerTemp').innerText = data.temp;
+            document.getElementById('usagePercentText').innerText = `${data.usage}% Used`;
+            document.getElementById('usageDataText').innerText = `${data.used} of ${data.capacity}`;
+            document.getElementById('centerLabel').innerText = diskId.toUpperCase();
+
+            // Update color based on usage
+            let chartColor = '#06b6d4';
+            if (data.usage > 90) chartColor = '#ef4444';
+            else if (data.usage > 75) chartColor = '#f59e0b';
+
+            radialChart.updateOptions({ colors: [chartColor] });
+        };
+
+        const showDiskModal = (diskId) => {
+            const data = disksData[diskId] || disksData['sda'];
+
+            document.getElementById('diskModalTitle').innerText = `Disk Information: /dev/${diskId}`;
+            document.getElementById('m-model').innerText = data.model;
+            document.getElementById('m-serial').innerText = data.serial;
+            document.getElementById('m-temp').innerText = data.temp;
+            document.getElementById('m-hours').innerText = data.hours;
+            document.getElementById('m-health').innerText = data.health;
+            document.getElementById('m-smart').innerText = (data.state === 'critical') ? 'FAILED' : 'PASS';
+
+            const healthText = document.getElementById('m-health');
+            healthText.className = 'fw-bold ' + (data.state === 'healthy' ? 'text-success' : data.state === 'warning' ? 'text-warning' : 'text-danger');
+
+            diskModal.show();
+            progressBar.classList.add('d-none');
+        };
+
+        // Listeners for Rack
+        diskBays.forEach((bay, index) => {
+            bay.addEventListener('click', () => {
+                const ids = ['sda', 'sdb', 'sdc', 'sdd'];
+                const diskId = ids[index] || 'sda';
+                updateUIWithDisk(diskId);
+                // Removed showDiskModal(diskId) as per user request to only show it on table click
+            });
+        });
+
+        // Listeners for Table Rows
+        diskRows.forEach(row => {
+            row.addEventListener('click', (e) => {
+                const diskId = row.getAttribute('data-disk');
+                updateUIWithDisk(diskId);
+                // Only show modal if they didn't click the "Unlock" button specifically
+                if (!e.target.closest('button')) {
+                    showDiskModal(diskId);
+                }
+            });
+        });
+
+        // Demo State Function update
+        window.updateDiskState = (newState) => {
+            const title = document.getElementById('diskModalTitle').innerText;
+            const diskId = title.split(': /dev/')[1];
+            if (disksData[diskId]) {
+                disksData[diskId].state = newState;
+                showDiskModal(diskId);
+                updateUIWithDisk(diskId);
+            }
+        };
+
+        // Wipe Simulation
+        wipeBtn.addEventListener('click', function () {
+            if (!confirm('DANGER: This will permanently ERASE all data on this disk. Continue?')) return;
+
+            this.disabled = true;
+            testBtn.disabled = true;
+            progressBar.classList.remove('d-none');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    alert('Disk Wiped Successfully (Simulated)');
+                    diskModal.hide();
+                }
+                progressBarInner.style.width = progress + '%';
+            }, 300);
+        });
+
+        testBtn.addEventListener('click', function () {
+            this.disabled = true;
+            wipeBtn.disabled = true;
+            progressBar.classList.remove('d-none');
+            progressBarInner.classList.replace('bg-danger', 'bg-info');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    alert('S.M.A.R.T Test Completed: Status Healthy');
+                    diskModal.hide();
+                }
+                progressBarInner.style.width = progress + '%';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
